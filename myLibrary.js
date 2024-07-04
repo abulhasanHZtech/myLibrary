@@ -7,4 +7,4 @@
     };
 
     global.myLibrary = myLibrary;
-})(this);
+})(typeof window !== 'undefined' ? window : global);
