@@ -204,11 +204,13 @@ class DesignerTool {
 }
 
 // Usage:
-// <script src="path/to/designer-tool.js"></script>
+// <script src="https://abulhasanHZtech.github.io/myLibrary/myLibrary.min.js"></script>
 // <script>
 //   document.addEventListener('DOMContentLoaded', function() {
 //     new DesignerTool('your-div-id');
 //   });
 // </script>
 
+
+// this is for creating (.min.js) file:
 // npx uglify-js myLibrary.js -o myLibrary.min.js
