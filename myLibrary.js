@@ -59,36 +59,7 @@ class DesignerTool {
             }
 
             container.innerHTML = `
-                <div class="container">
-                    <h1 class="mb-4">Designer Tool</h1>
-                    <div id="uploader" class="mb-4">
-                        <div class="form-group">
-                            <label for="imageUploader">Upload Image</label>
-                            <input type="file" id="imageUploader" class="form-control-file">
-                        </div>
-                        <div id="textUploader" class="mb-4">
-                            <label for="editor">Enter Text</label>
-                            <div id="editor" style="height: 100px;"></div>
-                            <button id="addText" class="btn btn-primary mt-2">Add Text</button>
-                        </div>
-                        <div class="form-group">
-                            <label for="qrText">QR Code Text</label>
-                            <input type="text" id="qrText" class="form-control" placeholder="Enter text for QR code">
-                            <button id="generateQR" class="btn btn-primary mt-2">Generate QR Code</button>
-                        </div>
-                    </div>
-                    <div id="canvas-container" class="d-flex justify-content-center">
-                        <canvas id="canvas" width="800" height="600"></canvas>
-                    </div>
-                    <div id="output-container" class="text-center">
-                        <button id="generateHTML" class="btn btn-success mt-4">Generate HTML</button>
-                        <button id="downloadHTML" class="btn btn-info mt-4" style="display: none;">Download HTML</button>
-                        <button id="removeSelected" class="btn btn-danger mt-4">Remove Selected</button>
-                        <pre id="output" style="display: none;"></pre>
-                    </div>
-                </div>
-            `;
-
+            <div class="container"><h1 class="mb-4">Designer Tool</h1><div id="uploader" class="mb-4"><div class="form-group"><label for="imageUploader">Upload Image</label><input type="file" id="imageUploader" class="form-control-file"></div><div id="textUploader" class="mb-4"><label for="editor">Enter Text</label><div id="editor" style="height: 100px;"></div><button id="addText" class="btn btn-primary mt-2">Add Text</button></div><div class="form-group"><label for="qrText">QR Code Text</label><input type="text" id="qrText" class="form-control" placeholder="Enter text for QR code"><button id="generateQR" class="btn btn-primary mt-2">Generate QR Code</button></div></div><div id="canvas-container" class="d-flex justify-content-center"><canvas id="canvas" width="800" height="600"></canvas></div><div id="output-container" class="text-center"><button id="generateHTML" class="btn btn-success mt-4">Generate HTML</button><button id="downloadHTML" class="btn btn-info mt-4" style="display: none;">Download HTML</button><button id="removeSelected" class="btn btn-danger mt-4">Remove Selected</button><pre id="output" style="display: none;"></pre></div></div>`;
             this.initializeTool();
         });
     }
