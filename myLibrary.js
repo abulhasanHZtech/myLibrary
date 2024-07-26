@@ -26,10 +26,6 @@ class DesignerTool {
       },
       {
         type: "js",
-        url: "https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-html.min.js",
-      },
-      {
-        type: "js",
         url: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
       },
       { type: "js", url: "https://code.jquery.com/jquery-3.5.1.slim.min.js" },
