@@ -862,14 +862,15 @@ div#htmlEditor button#downloadHtml {
   }
 
   initializeTool() {
-    fabricCanvas = new fabric.Canvas('canvas', {
+    this.fabricCanvas = new fabric.Canvas('canvas', {
         selection: false 
     });
-    fabricCanvas.setHeight(600);
-    fabricCanvas.setWidth(800);
-    const upperCanvasElement = fabricCanvas.upperCanvasEl;
+    console.log(this.fabricCanvas, "this.fabricCanvas---")
+    this.fabricCanvas.setHeight(600);
+    this.fabricCanvas.setWidth(800);
+    const upperCanvasElement = this.fabricCanvas.upperCanvasEl;
     upperCanvasElement.style.backgroundColor = 'transparent';
-    fabricCanvas.renderAll();
+    this.fabricCanvas.renderAll();
 
     this.setupEventListeners();
 }
@@ -884,12 +885,12 @@ setupEventListeners() {
     });
 
     document.getElementById('canva_preview').addEventListener('click', () => {
-        fabricCanvas.getObjects().forEach(object => {
+        this.fabricCanvas.getObjects().forEach(object => {
             object.selectable = false;
         });
 
-        fabricCanvas.discardActiveObject();
-        fabricCanvas.renderAll();
+        this.fabricCanvas.discardActiveObject();
+        this.fabricCanvas.renderAll();
 
         const sidebar = document.getElementById('sidebar');
         const mainSection = document.getElementById('main-section');
@@ -904,14 +905,14 @@ setupEventListeners() {
         document.getElementById('switch_btn').style.display = 'none';
         document.getElementById('back_tab').style.display = 'block';
 
-        fabricCanvas.selection = false;
-        fabricCanvas.off('mouse:down');
-        fabricCanvas.off('mouse:up');
-        fabricCanvas.off('mouse:move');
+        this.fabricCanvas.selection = false;
+        this.fabricCanvas.off('mouse:down');
+        this.fabricCanvas.off('mouse:up');
+        this.fabricCanvas.off('mouse:move');
     });
 
     document.getElementById('back_tab_btn').addEventListener('click', () => {
-        fabricCanvas.getObjects().forEach(object => {
+        this.fabricCanvas.getObjects().forEach(object => {
             object.selectable = true;
         });
 
@@ -928,10 +929,10 @@ setupEventListeners() {
         document.getElementById('switch_btn').style.display = 'block';
         document.getElementById('back_tab').style.display = 'none';
 
-        fabricCanvas.selection = true;
-        fabricCanvas.on('mouse:down');
-        fabricCanvas.on('mouse:up');
-        fabricCanvas.on('mouse:move');
+        this.fabricCanvas.selection = true;
+        this.fabricCanvas.on('mouse:down');
+        this.fabricCanvas.on('mouse:up');
+        this.fabricCanvas.on('mouse:move');
     });
 
     document.querySelectorAll('.add_text_btn').forEach(button => {
@@ -964,8 +965,9 @@ setupEventListeners() {
                 selectable: true
             });
 
-            fabricCanvas.add(textbox);
-            fabricCanvas.renderAll();
+            console.log(this.fabricCanvas, "this.fabricCanvas in textbox-------")
+            this.fabricCanvas.add(textbox);
+            this.fabricCanvas.renderAll();
 
             document.querySelector('.front_div').style.display = 'none';
             document.querySelector('.back_div').style.display = 'block';
@@ -973,16 +975,16 @@ setupEventListeners() {
     });
 
     document.getElementById('fontFamily').addEventListener('change', () => {
-        const activeObject = fabricCanvas.getActiveObject();
+        const activeObject = this.fabricCanvas.getActiveObject();
         if (activeObject && activeObject.type === 'textbox') {
             activeObject.set('fontFamily', this.value);
-            fabricCanvas.renderAll();
+            this.fabricCanvas.renderAll();
         }
     });
 
     document.querySelectorAll('.text_weight button').forEach(button => {
         button.addEventListener('click', function() {
-            const activeObject = fabricCanvas.getActiveObject();
+            const activeObject = this.fabricCanvas.getActiveObject();
             if (activeObject && activeObject.type === 'textbox') {
                 const buttonClass = this.className.split('_')[0];
 
@@ -1003,34 +1005,34 @@ setupEventListeners() {
                         this.classList.toggle('active', !isUnderline);
                         break;
                 }
-                fabricCanvas.renderAll();
+                this.fabricCanvas.renderAll();
             }
         });
     });
 
     document.getElementById('fontWeight').addEventListener('change', () => {
-        const activeObject = fabricCanvas.getActiveObject();
+        const activeObject = this.fabricCanvas.getActiveObject();
         if (activeObject && activeObject.type === 'textbox') {
             activeObject.set('fontWeight', this.value);
-            fabricCanvas.renderAll();
+            this.fabricCanvas.renderAll();
         }
     });
 
     document.getElementById('fontSize').addEventListener('keyup', () => {
-        const activeObject = fabricCanvas.getActiveObject();
+        const activeObject = this.fabricCanvas.getActiveObject();
         if (activeObject && activeObject.type === 'textbox') {
             const fontSize = this.value || 20;
             activeObject.set({ fontSize: parseInt(fontSize, 10) });
-            fabricCanvas.renderAll();
+            this.fabricCanvas.renderAll();
         }
     });
 
     document.getElementById('favcolor').addEventListener('change', () => {
-        const activeObject = fabricCanvas.getActiveObject();
+        const activeObject = this.fabricCanvas.getActiveObject();
         if (activeObject && activeObject.type === 'textbox') {
             const color = this.value;
             activeObject.set({ fill: color });
-            fabricCanvas.renderAll();
+            this.fabricCanvas.renderAll();
         }
     });
 
@@ -1039,10 +1041,10 @@ setupEventListeners() {
             document.querySelectorAll('.text-align button').forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
             const alignment = this.className.split('_')[0];
-            const activeObject = fabricCanvas.getActiveObject();
+            const activeObject = this.fabricCanvas.getActiveObject();
             if (activeObject && activeObject.type === 'textbox') {
                 activeObject.set({ textAlign: alignment });
-                fabricCanvas.renderAll();
+                this.fabricCanvas.renderAll();
             }
         });
     });
@@ -1062,10 +1064,10 @@ setupEventListeners() {
             document.querySelector('.create_artwork_wrapper').style.display = 'none';
             const canvaView = document.querySelector('.canva-view');
             canvaView.style.display = 'flex';
-            fabricCanvas.setHeight(height * 96);
-            fabricCanvas.setWidth(width * 96);
-            fabricCanvas.renderAll();
-            console.log(`Canvas height: ${fabricCanvas.height}, Canvas width: ${fabricCanvas.width}`);
+            this.fabricCanvas.setHeight(height * 96);
+            this.fabricCanvas.setWidth(width * 96);
+            this.fabricCanvas.renderAll();
+            console.log(`Canvas height: ${this.fabricCanvas.height}, Canvas width: ${this.fabricCanvas.width}`);
         } else {
             console.log("No active button selected.");
         }
@@ -1158,8 +1160,8 @@ setupEventListeners() {
         }
     }
     
-    fabricCanvas.on('selection:created', handleSelectionEvent);
-    fabricCanvas.on('selection:updated', handleSelectionEvent);
+    this.fabricCanvas.on('selection:created', handleSelectionEvent);
+    this.fabricCanvas.on('selection:updated', handleSelectionEvent);
     
     
     function addImageToCanvas(dataUrl, isQR = false) {
