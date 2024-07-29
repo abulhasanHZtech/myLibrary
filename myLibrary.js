@@ -862,8 +862,8 @@ div#htmlEditor button#downloadHtml {
   }
 
   initializeTool() {
-    document.addEventListener("DOMContentLoaded", function () {
-      this.this.fabricCanvas = new fabric.Canvas("canvas", {
+
+      this.fabricCanvas = new fabric.Canvas("canvas", {
         selection: false,
       });
       this.fabricCanvas.setHeight(600);
@@ -1373,7 +1373,7 @@ div#htmlEditor button#downloadHtml {
         element.click();
         document.body.removeChild(element);
       }
-    });
+   
   }
 }
 
