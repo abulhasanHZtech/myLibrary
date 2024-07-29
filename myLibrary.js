@@ -863,14 +863,14 @@ div#htmlEditor button#downloadHtml {
 
   initializeTool() {
 
-      this.fabricCanvas = new fabric.Canvas("canvas", {
+      let fabricCanvas = new fabric.Canvas("canvas", {
         selection: false,
       });
-      this.fabricCanvas.setHeight(600);
-      this.fabricCanvas.setWidth(800);
-      const upperCanvasElement = this.fabricCanvas.upperCanvasEl;
+      fabricCanvas.setHeight(600);
+      fabricCanvas.setWidth(800);
+      const upperCanvasElement = fabricCanvas.upperCanvasEl;
       upperCanvasElement.style.backgroundColor = "transparent";
-      this.fabricCanvas.renderAll();
+      fabricCanvas.renderAll();
 
       document.querySelectorAll(".size-btn").forEach((button) => {
         button.addEventListener("click", function (event) {
@@ -886,12 +886,12 @@ div#htmlEditor button#downloadHtml {
       document
         .getElementById("canva_preview")
         .addEventListener("click", function () {
-          this.fabricCanvas.getObjects().forEach(function (object) {
+          fabricCanvas.getObjects().forEach(function (object) {
             object.selectable = false;
           });
 
-          this.fabricCanvas.discardActiveObject();
-          this.fabricCanvas.renderAll();
+          fabricCanvas.discardActiveObject();
+          fabricCanvas.renderAll();
 
           const sidebar = document.getElementById("sidebar");
           const mainSection = document.getElementById("main-section");
@@ -906,16 +906,16 @@ div#htmlEditor button#downloadHtml {
           document.getElementById("switch_btn").style.display = "none";
           document.getElementById("back_tab").style.display = "block";
 
-          this.fabricCanvas.selection = false;
-          this.fabricCanvas.off("mouse:down");
-          this.fabricCanvas.off("mouse:up");
-          this.fabricCanvas.off("mouse:move");
+          fabricCanvas.selection = false;
+          fabricCanvas.off("mouse:down");
+          fabricCanvas.off("mouse:up");
+          fabricCanvas.off("mouse:move");
         });
 
       document
         .getElementById("back_tab_btn")
         .addEventListener("click", function () {
-          this.fabricCanvas.getObjects().forEach(function (object) {
+          fabricCanvas.getObjects().forEach(function (object) {
             object.selectable = true;
           });
 
@@ -932,10 +932,10 @@ div#htmlEditor button#downloadHtml {
           document.getElementById("switch_btn").style.display = "block";
           document.getElementById("back_tab").style.display = "none";
 
-          this.fabricCanvas.selection = true;
-          this.fabricCanvas.on("mouse:down");
-          this.fabricCanvas.on("mouse:up");
-          this.fabricCanvas.on("mouse:move");
+          fabricCanvas.selection = true;
+          fabricCanvas.on("mouse:down");
+          fabricCanvas.on("mouse:up");
+          fabricCanvas.on("mouse:move");
         });
 
       document.querySelectorAll(".add_text_btn").forEach((button) => {
@@ -969,8 +969,8 @@ div#htmlEditor button#downloadHtml {
             selectable: true,
           });
 
-          this.fabricCanvas.add(textbox);
-          this.fabricCanvas.renderAll();
+          fabricCanvas.add(textbox);
+          fabricCanvas.renderAll();
 
           document.querySelector(".front_div").style.display = "none";
           document.querySelector(".back_div").style.display = "block";
@@ -980,16 +980,16 @@ div#htmlEditor button#downloadHtml {
       document
         .getElementById("fontFamily")
         .addEventListener("change", function () {
-          const activeObject = this.fabricCanvas.getActiveObject();
+          const activeObject = fabricCanvas.getActiveObject();
           if (activeObject && activeObject.type === "textbox") {
             activeObject.set("fontFamily", this.value);
-            this.fabricCanvas.renderAll();
+            fabricCanvas.renderAll();
           }
         });
 
       document.querySelectorAll(".text_weight button").forEach((button) => {
         button.addEventListener("click", function () {
-          const activeObject = this.fabricCanvas.getActiveObject();
+          const activeObject = fabricCanvas.getActiveObject();
           if (activeObject && activeObject.type === "textbox") {
             const buttonClass = this.className.split("_")[0];
 
@@ -1010,7 +1010,7 @@ div#htmlEditor button#downloadHtml {
                 this.classList.toggle("active", !isUnderline);
                 break;
             }
-            this.fabricCanvas.renderAll();
+            fabricCanvas.renderAll();
           }
         });
       });
@@ -1018,32 +1018,32 @@ div#htmlEditor button#downloadHtml {
       document
         .getElementById("fontWeight")
         .addEventListener("change", function () {
-          const activeObject = this.fabricCanvas.getActiveObject();
+          const activeObject = fabricCanvas.getActiveObject();
           if (activeObject && activeObject.type === "textbox") {
             activeObject.set("fontWeight", this.value);
-            this.fabricCanvas.renderAll();
+            fabricCanvas.renderAll();
           }
         });
 
       document
         .getElementById("fontSize")
         .addEventListener("keyup", function () {
-          const activeObject = this.fabricCanvas.getActiveObject();
+          const activeObject = fabricCanvas.getActiveObject();
           if (activeObject && activeObject.type === "textbox") {
             const fontSize = this.value || 20;
             activeObject.set({ fontSize: parseInt(fontSize, 10) });
-            this.fabricCanvas.renderAll();
+            fabricCanvas.renderAll();
           }
         });
 
       document
         .getElementById("favcolor")
         .addEventListener("change", function () {
-          const activeObject = this.fabricCanvas.getActiveObject();
+          const activeObject = fabricCanvas.getActiveObject();
           if (activeObject && activeObject.type === "textbox") {
             const color = this.value;
             activeObject.set({ fill: color });
-            this.fabricCanvas.renderAll();
+            fabricCanvas.renderAll();
           }
         });
 
@@ -1057,10 +1057,10 @@ div#htmlEditor button#downloadHtml {
 
           const alignment = this.className.split("_")[0];
 
-          const activeObject = this.fabricCanvas.getActiveObject();
+          const activeObject = fabricCanvas.getActiveObject();
           if (activeObject && activeObject.type === "textbox") {
             activeObject.set({ textAlign: alignment });
-            this.fabricCanvas.renderAll();
+            fabricCanvas.renderAll();
           }
         });
       });
@@ -1090,10 +1090,10 @@ div#htmlEditor button#downloadHtml {
             const canvaView = document.querySelector(".canva-view");
             canvaView.style.display = "flex";
 
-            this.fabricCanvas.setHeight(height * 96);
-            this.fabricCanvas.setWidth(width * 96);
+            fabricCanvas.setHeight(height * 96);
+            fabricCanvas.setWidth(width * 96);
 
-            this.fabricCanvas.renderAll();
+            fabricCanvas.renderAll();
 
             console.log(
               `Canvas height: ${canvas.height}, Canvas width: ${canvas.width}`
@@ -1123,9 +1123,9 @@ div#htmlEditor button#downloadHtml {
               selectable: true,
               isQR: true,
             });
-            this.fabricCanvas.add(img);
+            fabricCanvas.add(img);
             img.bringToFront();
-            this.fabricCanvas.renderAll();
+            fabricCanvas.renderAll();
           });
         });
 
@@ -1175,9 +1175,9 @@ div#htmlEditor button#downloadHtml {
 
       document.querySelectorAll(".removeSelected").forEach((button) => {
         button.addEventListener("click", function () {
-          const activeObject = this.fabricCanvas.getActiveObject();
+          const activeObject = fabricCanvas.getActiveObject();
           if (activeObject) {
-            this.fabricCanvas.remove(activeObject);
+            fabricCanvas.remove(activeObject);
           }
         });
       });
@@ -1203,8 +1203,8 @@ div#htmlEditor button#downloadHtml {
         }
       }
 
-      this.fabricCanvas.on("selection:created", handleSelectionEvent);
-      this.fabricCanvas.on("selection:updated", handleSelectionEvent);
+      fabricCanvas.on("selection:created", handleSelectionEvent);
+      fabricCanvas.on("selection:updated", handleSelectionEvent);
 
       function addImageToCanvas(dataUrl, isQR = false) {
         fabric.Image.fromURL(
@@ -1216,9 +1216,9 @@ div#htmlEditor button#downloadHtml {
               selectable: true,
               isQR: isQR,
             });
-            this.fabricCanvas.add(img);
+            fabricCanvas.add(img);
             img.bringToFront();
-            this.fabricCanvas.renderAll();
+            fabricCanvas.renderAll();
 
             addImageToList(img);
           },
@@ -1241,7 +1241,7 @@ div#htmlEditor button#downloadHtml {
         trashButton.classList.add("trash-button");
         trashButton.innerHTML = "&times;";
         trashButton.addEventListener("click", function () {
-          this.fabricCanvas.remove(img);
+          fabricCanvas.remove(img);
           imageList.removeChild(imageItem);
         });
 
@@ -1304,7 +1304,7 @@ div#htmlEditor button#downloadHtml {
             var btn = document.getElementById("canva_preview");
             btn.disabled = true;
 
-            const htmlContent = convertCanvasToHTML(this.fabricCanvas);
+            const htmlContent = convertCanvasToHTML(fabricCanvas);
             const htmlCodeElement = document.getElementById("htmlCode");
             htmlCodeElement.textContent = htmlContent;
 
