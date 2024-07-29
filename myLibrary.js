@@ -871,8 +871,15 @@ div#htmlEditor button#downloadHtml {
     const upperCanvasElement = this.fabricCanvas.upperCanvasEl;
     upperCanvasElement.style.backgroundColor = 'transparent';
     this.fabricCanvas.renderAll();
-
     this.setupEventListeners();
+
+    this.setupEventListeners = this.setupEventListeners.bind(this);
+    this.handleTextSelection = this.handleTextSelection.bind(this);
+    this.handleSelectionEvent = this.handleSelectionEvent.bind(this);
+    this.addImageToCanvas = this.addImageToCanvas.bind(this);
+    this.addImageToList = this.addImageToList.bind(this);
+    this.convertCanvasToHTML = this.convertCanvasToHTML.bind(this);
+    this.downloadHTMLFile = this.downloadHTMLFile.bind(this);
 }
 
 setupEventListeners() {
@@ -1316,9 +1323,8 @@ setupEventListeners() {
         document.body.removeChild(element);
     }
 }
-
-
 }
+
 
 
 // Usage:
