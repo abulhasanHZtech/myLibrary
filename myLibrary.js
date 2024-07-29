@@ -281,7 +281,7 @@ right: 0;
 margin: 0 auto;
 width: 100%;
 height: 0;
-background-color: #000;
+background-color: #000000;
 opacity: 0;
 transition-duration: .3s;
 }
@@ -761,7 +761,7 @@ div#htmlEditor button#downloadHtml {
                                                     <button class="justify_align"><i class="fa fa-align-justify" aria-hidden="true"></i></button>
                                                 </div>
                                                 <div class="color_weight mt-3">
-                                                    <input type="color" id="favcolor" name="favcolor" value="#000">
+                                                    <input type="color" id="favcolor" name="favcolor" value="#000000">
                                                     <div class="text_weight ">
                                                         <button class="bold_btn"><i class="fa fa-bold" aria-hidden="true"></i></button>
                                                         <button class="italic_btn"><i class="fa fa-italic" aria-hidden="true"></i></button>
@@ -1169,7 +1169,7 @@ div#htmlEditor button#downloadHtml {
             .classList.toggle("active", !!activeObject.underline);
 
           document.getElementById("favcolor").value =
-            activeObject.fill || "#000";
+            activeObject.fill || "#000000";
         }
       }
 
