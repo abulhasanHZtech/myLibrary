@@ -1248,7 +1248,7 @@ div#htmlEditor button#downloadHtml {
         imageItem.appendChild(trashButton);
         imageList.appendChild(imageItem);
       }
-
+      
       document
         .getElementById("imageUploader")
         .addEventListener("change", function (event) {
