@@ -1249,24 +1249,111 @@ div#htmlEditor button#downloadHtml {
         imageList.appendChild(imageItem);
       }
       
-      document
-        .getElementById("imageUploader")
-        .addEventListener("change", function (event) {
-          const file = event.target.files[0];
-          if (!file) {
-            return;
-          }
+      // document
+      //   .getElementById("imageUploader")
+      //   .addEventListener("change", function (event) {
+      //     const file = event.target.files[0];
+      //     if (!file) {
+      //       return;
+      //     }
+      //     const reader = new FileReader();
 
-          const reader = new FileReader();
+      //     reader.onload = function (e) {
+      //       const dataUrl = e.target.result;
+      //       addImageToCanvas(dataUrl);
+      //     };
 
-          reader.onload = function (e) {
-            const dataUrl = e.target.result;
-            addImageToCanvas(dataUrl);
-          };
+      //     reader.readAsDataURL(file);
+      //   });
+// =====================================
+document.getElementById("imageUploader").addEventListener("change", function (event) {
+  const file = event.target.files[0];
+  if (!file) {
+      return;
+  }
 
-          reader.readAsDataURL(file);
-        });
+  uploadImage(file);
+  const reader = new FileReader();
+  reader.onload = function (e) {
+      const dataUrl = e.target.result;
+      addImageToCanvas(dataUrl);
+  };
+  reader.readAsDataURL(file);
+});
 
+function getApiKey() {
+  var scripts = document.getElementsByTagName('script');
+  for (var i = 0; i < scripts.length; i++) {
+      if (scripts[i].src.includes('myLibrary.min.js')) {
+          return scripts[i].getAttribute('data-api');
+      }
+  }
+  return null;
+}
+
+function getApiUrl() {
+  var scripts = document.getElementsByTagName('script');
+  for (var i = 0; i < scripts.length; i++) {
+      if (scripts[i].src.includes('myLibrary.min.js')) {
+          return scripts[i].getAttribute('data-url');
+      }
+  }
+  return null;
+}
+
+async function uploadImage(file) {
+  const baseUrl = getApiUrl(); // Get the base URL from the script tag
+  const token = getApiKey();
+  
+  if (!token) {
+      console.error('API key not found!');
+      return;
+  }
+
+  if (!baseUrl) {
+      console.error('API URL not found!');
+      return;
+  }
+
+  const url = `https://${baseUrl}/api/1.1/wf/upload_image`; // Construct the full API endpoint
+
+  const formData = new FormData();
+  formData.append('image', file);
+
+  try {
+      const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+              'Authorization': 'Bearer ' + token
+          },
+          body: formData
+      });
+
+      if (response.ok) {
+          const jsonResponse = await response.json();
+          console.log('Image uploaded successfully:', jsonResponse);
+          // Display the image or perform other actions with the response
+      } else {
+          console.error('Failed to upload image:', response.statusText);
+      }
+  } catch (error) {
+      console.error('Error uploading image:', error);
+  }
+}
+
+function addImageToCanvas(dataUrl) {
+  const canvas = document.getElementById('imageCanvas');
+  const context = canvas.getContext('2d');
+  const image = new Image();
+  image.onload = function() {
+      canvas.width = image.width;
+      canvas.height = image.height;
+      context.drawImage(image, 0, 0);
+  };
+  image.src = dataUrl;
+}
+
+// ====================================
       document
         .getElementById("addImageFromUrl")
         .addEventListener("click", function (event) {
