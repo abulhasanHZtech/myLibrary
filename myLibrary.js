@@ -1269,24 +1269,27 @@ div#htmlEditor button#downloadHtml {
 document.getElementById("imageUploader").addEventListener("change", function (event) {
   const file = event.target.files[0];
   if (!file) {
-      return;
+    return;
   }
 
-  uploadImage(file);
+  // Read the file and convert it to Base64
   const reader = new FileReader();
   reader.onload = function (e) {
-      const dataUrl = e.target.result;
-      addImageToCanvas(dataUrl);
+    const dataUrl = e.target.result;
+    const base64Data = dataUrl.split(',')[1];
+    
+    uploadImage(file.name, base64Data);
+    addImageToCanvas(dataUrl);
   };
   reader.readAsDataURL(file);
 });
-console.log('here');
+
 function getApiKey() {
   var scripts = document.getElementsByTagName('script');
   for (var i = 0; i < scripts.length; i++) {
-      if (scripts[i].src.includes('myLibrary.min.js')) {
-          return scripts[i].getAttribute('data-api');
-      }
+    if (scripts[i].src.includes('myLibrary.min.js')) {
+      return scripts[i].getAttribute('data-api');
+    }
   }
   return null;
 }
@@ -1294,63 +1297,70 @@ function getApiKey() {
 function getApiUrl() {
   var scripts = document.getElementsByTagName('script');
   for (var i = 0; i < scripts.length; i++) {
-      if (scripts[i].src.includes('myLibrary.min.js')) {
-          return scripts[i].getAttribute('data-url');
-      }
+    if (scripts[i].src.includes('myLibrary.min.js')) {
+      return scripts[i].getAttribute('data-url');
+    }
   }
   return null;
 }
 
-async function uploadImage(file) {
+async function uploadImage(fileName, base64Data) {
   const baseUrl = getApiUrl(); // Get the base URL from the script tag
   const token = getApiKey();
   
   if (!token) {
-      console.error('API key not found!');
-      return;
+    console.error('API key not found!');
+    return;
   }
 
   if (!baseUrl) {
-      console.error('API URL not found!');
-      return;
+    console.error('API URL not found!');
+    return;
   }
 
-  const url = `https://${baseUrl}/api/1.1/obj/image`;
-  console.log(url);
+  const url = `https://${baseUrl}/version-test/api/1.1/obj/image`; // Construct the full API endpoint
 
-  const formData = new FormData();
-  formData.append('image', file);
+  const payload = {
+    filename: fileName,
+    contents: base64Data,
+    private: false
+  };
+
+  console.log('API URL:', url);
+  console.log('API Token:', token);
 
   try {
-      const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-              'Authorization': 'Bearer ' + token
-          },
-          body: formData
-      });
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
 
-      if (response.ok) {
-          const jsonResponse = await response.json();
-          console.log('Image uploaded successfully:', jsonResponse);
-      } else {
-          console.error('Failed to upload image:', response.statusText);
-      }
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      console.log('Image uploaded successfully:', jsonResponse);
+    } else {
+      console.error('Failed to upload image:', response.statusText);
+      console.log(await response.json()); // Log the response body for more details
+    }
   } catch (error) {
-      console.error('Error uploading image:', error);
+    console.error('Error uploading image:', error);
   }
 }
 
 function addImageToCanvas(dataUrl) {
   const canvas = document.getElementById('imageCanvas');
   const context = canvas.getContext('2d');
-  const image = new Image();
-  image.onload = function() {
-      canvas.width = image.width;
-      canvas.height = image.height;
-      context.drawImage(image, 0, 0);
+  const img = new Image();
+  img.onload = function () {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    context.drawImage(img, 0, 0);
   };
-  image.src = dataUrl;
+  img.src = dataUrl;
 }
 
 // ====================================
