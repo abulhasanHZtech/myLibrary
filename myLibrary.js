@@ -1315,7 +1315,7 @@ async function uploadImage(file) {
       return;
   }
 
-  const url = `https://${baseUrl}/api/1.1/obj/upload_image`;
+  const url = `https://${baseUrl}/api/1.1/obj/image`;
   console.log(url);
 
   const formData = new FormData();
