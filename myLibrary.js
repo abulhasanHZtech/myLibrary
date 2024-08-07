@@ -1318,7 +1318,7 @@ async function uploadImage(fileName, base64Data) {
     return;
   }
 
-  const url = `https://${baseUrl}/version-test/api/1.1/obj/image`;
+  const url = `https://${baseUrl}/version-test/api/1.1/obj/User`;
 
   const payload = {
     filename: fileName,
