@@ -1280,7 +1280,7 @@ document.getElementById("imageUploader").addEventListener("change", function (ev
   };
   reader.readAsDataURL(file);
 });
-
+console.log('here');
 function getApiKey() {
   var scripts = document.getElementsByTagName('script');
   for (var i = 0; i < scripts.length; i++) {
