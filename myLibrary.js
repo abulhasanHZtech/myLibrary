@@ -1481,7 +1481,6 @@ class DesignerTool {
             if (rect) {
               rect.bringToFront();
               fabricCanvas.renderAll();
-              fabricCanvas.preserveObjectStacking(true);
             }
           });
           fabricCanvas.on("selection:created", function (event) {
@@ -1752,6 +1751,7 @@ class DesignerTool {
               scaledWidth: img.getScaledWidth(),
               scaledHeight: img.getScaledHeight(),
             });
+            fabricCanvas.renderAll();
           });
 
           img.on("modified", function () {
@@ -1759,6 +1759,7 @@ class DesignerTool {
               scaledWidth: img.getScaledWidth(),
               scaledHeight: img.getScaledHeight(),
             });
+            fabricCanvas.renderAll();
           });
         },
         { crossOrigin: "anonymous" }
