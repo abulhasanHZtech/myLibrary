@@ -1249,119 +1249,119 @@ div#htmlEditor button#downloadHtml {
         imageList.appendChild(imageItem);
       }
       
-      // document
-      //   .getElementById("imageUploader")
-      //   .addEventListener("change", function (event) {
-      //     const file = event.target.files[0];
-      //     if (!file) {
-      //       return;
-      //     }
-      //     const reader = new FileReader();
+      document
+        .getElementById("imageUploader")
+        .addEventListener("change", function (event) {
+          const file = event.target.files[0];
+          if (!file) {
+            return;
+          }
+          const reader = new FileReader();
 
-      //     reader.onload = function (e) {
-      //       const dataUrl = e.target.result;
-      //       addImageToCanvas(dataUrl);
-      //     };
+          reader.onload = function (e) {
+            const dataUrl = e.target.result;
+            addImageToCanvas(dataUrl);
+          };
 
-      //     reader.readAsDataURL(file);
-      //   });
+          reader.readAsDataURL(file);
+        });
 // =====================================
-document.getElementById("imageUploader").addEventListener("change", function (event) {
-  const file = event.target.files[0];
-  if (!file) {
-    return;
-  }
+// document.getElementById("imageUploader").addEventListener("change", function (event) {
+//   const file = event.target.files[0];
+//   if (!file) {
+//     return;
+//   }
 
-  // Read the file and convert it to Base64
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const dataUrl = e.target.result;
-    const base64Data = dataUrl.split(',')[1];
+//   // Read the file and convert it to Base64
+//   const reader = new FileReader();
+//   reader.onload = function (e) {
+//     const dataUrl = e.target.result;
+//     const base64Data = dataUrl.split(',')[1];
     
-    uploadImage(file.name, base64Data);
-    addImageToCanvas(dataUrl);
-  };
-  reader.readAsDataURL(file);
-});
+//     uploadImage(file.name, base64Data);
+//     addImageToCanvas(dataUrl);
+//   };
+//   reader.readAsDataURL(file);
+// });
 
-function getApiKey() {
-  var scripts = document.getElementsByTagName('script');
-  for (var i = 0; i < scripts.length; i++) {
-    if (scripts[i].src.includes('myLibrary.min.js')) {
-      return scripts[i].getAttribute('data-api');
-    }
-  }
-  return null;
-}
+// function getApiKey() {
+//   var scripts = document.getElementsByTagName('script');
+//   for (var i = 0; i < scripts.length; i++) {
+//     if (scripts[i].src.includes('myLibrary.min.js')) {
+//       return scripts[i].getAttribute('data-api');
+//     }
+//   }
+//   return null;
+// }
 
-function getApiUrl() {
-  var scripts = document.getElementsByTagName('script');
-  for (var i = 0; i < scripts.length; i++) {
-    if (scripts[i].src.includes('myLibrary.min.js')) {
-      return scripts[i].getAttribute('data-url');
-    }
-  }
-  return null;
-}
+// function getApiUrl() {
+//   var scripts = document.getElementsByTagName('script');
+//   for (var i = 0; i < scripts.length; i++) {
+//     if (scripts[i].src.includes('myLibrary.min.js')) {
+//       return scripts[i].getAttribute('data-url');
+//     }
+//   }
+//   return null;
+// }
 
-async function uploadImage(fileName, base64Data) {
-  const baseUrl = getApiUrl(); // Get the base URL from the script tag
-  const token = getApiKey();
+// async function uploadImage(fileName, base64Data) {
+//   const baseUrl = getApiUrl(); // Get the base URL from the script tag
+//   const token = getApiKey();
   
-  if (!token) {
-    console.error('API key not found!');
-    return;
-  }
+//   if (!token) {
+//     console.error('API key not found!');
+//     return;
+//   }
 
-  if (!baseUrl) {
-    console.error('API URL not found!');
-    return;
-  }
+//   if (!baseUrl) {
+//     console.error('API URL not found!');
+//     return;
+//   }
 
-  const url = `https://${baseUrl}/version-test/api/1.1/obj/User`;
+//   const url = `https://${baseUrl}/version-test/api/1.1/obj/User`;
 
-  const payload = {
-    filename: fileName,
-    contents: base64Data,
-    private: false
-  };
+//   const payload = {
+//     filename: fileName,
+//     contents: base64Data,
+//     private: false
+//   };
 
-  console.log('API URL:', url);
-  console.log('API Token:', token);
+//   console.log('API URL:', url);
+//   console.log('API Token:', token);
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    });
-      console.log(response);
-    if (response.ok) {
-      const jsonResponse = await response.json();
-      console.log('Image uploaded successfully:', jsonResponse);
-    } else {
-      console.error('Failed to upload image:', response.statusText);
-      console.log(await response.json());
-    }
-  } catch (error) {
-    console.error('Error uploading image:', error);
-  }
-}
+//   try {
+//     const response = await fetch(url, {
+//       method: 'POST',
+//       headers: {
+//         'Authorization': 'Bearer ' + token,
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(payload)
+//     });
+//       console.log(response);
+//     if (response.ok) {
+//       const jsonResponse = await response.json();
+//       console.log('Image uploaded successfully:', jsonResponse);
+//     } else {
+//       console.error('Failed to upload image:', response.statusText);
+//       console.log(await response.json());
+//     }
+//   } catch (error) {
+//     console.error('Error uploading image:', error);
+//   }
+// }
 
-function addImageToCanvas(dataUrl) {
-  const canvas = document.getElementById('imageCanvas');
-  const context = canvas.getContext('2d');
-  const img = new Image();
-  img.onload = function () {
-    canvas.width = img.width;
-    canvas.height = img.height;
-    context.drawImage(img, 0, 0);
-  };
-  img.src = dataUrl;
-}
+// function addImageToCanvas(dataUrl) {
+//   const canvas = document.getElementById('imageCanvas');
+//   const context = canvas.getContext('2d');
+//   const img = new Image();
+//   img.onload = function () {
+//     canvas.width = img.width;
+//     canvas.height = img.height;
+//     context.drawImage(img, 0, 0);
+//   };
+//   img.src = dataUrl;
+// }
 
 // ====================================
       document
