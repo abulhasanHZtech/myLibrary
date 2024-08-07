@@ -1338,13 +1338,13 @@ async function uploadImage(fileName, base64Data) {
       },
       body: JSON.stringify(payload)
     });
-
+      console.log(response);
     if (response.ok) {
       const jsonResponse = await response.json();
       console.log('Image uploaded successfully:', jsonResponse);
     } else {
       console.error('Failed to upload image:', response.statusText);
-      console.log(await response.json()); // Log the response body for more details
+      console.log(await response.json());
     }
   } catch (error) {
     console.error('Error uploading image:', error);
