@@ -1315,7 +1315,8 @@ async function uploadImage(file) {
       return;
   }
 
-  const url = `https://${baseUrl}/api/1.1/wf/upload_image`; // Construct the full API endpoint
+  const url = `https://${baseUrl}/api/1.1/obj/upload_image`;
+  console.log(url);
 
   const formData = new FormData();
   formData.append('image', file);
@@ -1332,7 +1333,6 @@ async function uploadImage(file) {
       if (response.ok) {
           const jsonResponse = await response.json();
           console.log('Image uploaded successfully:', jsonResponse);
-          // Display the image or perform other actions with the response
       } else {
           console.error('Failed to upload image:', response.statusText);
       }
